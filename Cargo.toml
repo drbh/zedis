@@ -1,0 +1,9 @@
+[package]
+name = "zedis"
+version = "0.1.0"
+authors = ["drbh <david.richard.holtz@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+sled = "0.28.0"
+zmq = "0.9"
