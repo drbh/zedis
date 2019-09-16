@@ -1,5 +1,17 @@
 # ZEDIS <img src="https://img.shields.io/github/stars/drbh/zedis.svg" />
 
+## Install
+Clone, build and add a symlink so you can access `zedis` in the cli
+```bash
+git clone https://github.com/drbh/zedis.git && cd zedis
+cargo build && sh install.sh 
+```
+
+## Run
+``` 
+zedis
+```
+
 A lightweight zero mq and sled based replacement for Redis. <50 LOC focused on a portable corss language simple storage system. No need to run a full service.
 
 Zedis is opinionated and limited. With ZEDIS you can only READ and WRITE key values pairs. All writes overwrite past values. 

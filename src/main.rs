@@ -18,6 +18,19 @@ fn main() {
     assert!(responder.bind("tcp://*:5555").is_ok());
     let mut msg = zmq::Message::new();
 	let t = Db::open("my_db").unwrap();
+	println!("{}", "
+	  _______ ___ ___ ___ 
+	 |_  / __|   \\_ _/ __|
+	  / /| _|| |) | |\\__ \\ 
+	 /___|___|___/___|___/ 
+
+
+	Welcom to zedis a lightweight
+	super simple datasore. 
+
+	transport: tpc://localhost:5555 
+	database file: my_db
+		");
 
     loop {
         responder.recv(&mut msg, 0).unwrap();
