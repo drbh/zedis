@@ -36,5 +36,3 @@ socket.send("GET js")
 json.loads(socket.recv())
 # {u'exmple': u'dasfsa'}
 ```
-
-## Limited
