@@ -1,6 +1,29 @@
 # ZEDIS <img src="https://img.shields.io/github/stars/drbh/zedis.svg" />
 
 ## Install
+
+#### Homebrew
+```bash
+brew tap drbh/zedis https://github.com/drbh/zedis
+brew install zedis
+zedis
+# $ zedis
+#
+#	   _______ ___ ___ ___ 
+#	  |_  / __|   \_ _/ __|
+#	   / /| _|| |) | |\__ \ 
+#	  /___|___|___/___|___/ 
+
+
+#	 Welcome to zedis a lightweight
+#	 super simple datasore. 
+
+#	 transport: tpc://localhost:5555 
+#	 database file: my_db
+#
+```
+
+#### Build it
 Clone, build and add a symlink so you can access `zedis` in the cli
 ```bash
 git clone https://github.com/drbh/zedis.git && cd zedis
