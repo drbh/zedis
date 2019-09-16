@@ -1,1 +1,1 @@
-sudo ln -s -f $(pwd)/target/debug/zedis /usr/local/bin
+sudo ln -s -f $(pwd)/target/release/zedis /usr/local/bin

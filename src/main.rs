@@ -25,12 +25,11 @@ fn main() {
 	 /___|___|___/___|___/ 
 
 
-	Welcom to zedis a lightweight
+	Welcome to zedis a lightweight
 	super simple datasore. 
 
 	transport: tpc://localhost:5555 
-	database file: my_db
-		");
+	database file: my_db");
 
     loop {
         responder.recv(&mut msg, 0).unwrap();
@@ -51,6 +50,6 @@ fn main() {
         }
         let _duration = start.elapsed();
         // println!("{} {:#?}", msg_text, _duration);
-        println!("{:#?}", _duration);
+        // println!("{:#?}", _duration);
     }
 }

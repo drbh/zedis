@@ -4,7 +4,7 @@
 Clone, build and add a symlink so you can access `zedis` in the cli
 ```bash
 git clone https://github.com/drbh/zedis.git && cd zedis
-cargo build && sh install.sh 
+cargo build --release && sh install.sh 
 ```
 
 ## Run
@@ -46,5 +46,22 @@ socket.recv()
 
 socket.send("GET js")
 json.loads(socket.recv())
-# {u'exmple': u'dasfsa'}
+# {u'exmple': u'lorem ipsum...'}
 ```
+
+
+### Check alive
+```bash
+nc -v -z -w 5 localhost 5555
+# found 0 associations
+# found 1 connections:
+#      1:	flags=82<CONNECTED,PREFERRED>
+# 	outif lo0
+# 	src 127.0.0.1 port 52227
+# 	dst 127.0.0.1 port 5555
+# 	rank info not available
+# 	TCP aux info available
+
+# Connection to localhost port 5555 [tcp/personal-agent] succeeded!
+```
+
