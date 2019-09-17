@@ -1,12 +1,11 @@
 # ZEDIS <img src="https://img.shields.io/github/stars/drbh/zedis.svg" />
 
-## Install
+# Install
 
 #### (MAC) Homebrew
 ```bash
 brew tap drbh/zedis https://github.com/drbh/zedis
 brew install zedis
-zedis
 ```
 
 #### (LINUX) `apt-get`
@@ -14,37 +13,20 @@ zedis
 wget https://github.com/drbh/zedis/releases/download/v0.0001/zedis_1.0_amd64.deb 
 sudo apt install ./zedis_1.0_amd64.deb
 rm zedis_1.0_amd64.deb
+```
+# Run
+``` 
 zedis
 ```
 
-#### Running Prompt
+#### 👍
 ```
 # $ zedis
-#
 #	   _______ ___ ___ ___ 
 #	  |_  / __|   \_ _/ __|
 #	   / /| _|| |) | |\__ \ 
 #	  /___|___|___/___|___/ 
-
-
-#	 Welcome to zedis a lightweight
-#	 super simple datasore. 
-
-#	 transport: tpc://localhost:5555 
-#	 database file: my_db
 #
-```
-
-#### Build it
-Clone, build and add a symlink so you can access `zedis` in the cli
-```bash
-git clone https://github.com/drbh/zedis.git && cd zedis
-cargo build --release && sh install.sh 
-```
-
-## Run
-``` 
-zedis
 ```
 
 A lightweight zero mq and sled based replacement for Redis. <50 LOC focused on a portable corss language simple storage system. No need to run a full service.
@@ -65,7 +47,7 @@ zedis 6677
 
 If no port is specified zedis will fallback on `5555`
 
-## Read/Write from Python
+#### Read/Write from Python
 ```python
 import zmq
 import json
@@ -110,3 +92,17 @@ nc -v -z -w 5 localhost 5555
 # Connection to localhost port 5555 [tcp/personal-agent] succeeded!
 ```
 
+# Dev
+
+#### Build it
+Clone, build and add a symlink so you can access `zedis` in the cli
+```bash
+git clone https://github.com/drbh/zedis.git && cd zedis
+cargo build --release && sh install.sh 
+```
+
+#### Packaging
+
+```
+fpm -f -s dir -t deb -n zedis target/release/zedis=/usr/local/
+```
