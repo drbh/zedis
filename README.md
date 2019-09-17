@@ -2,11 +2,23 @@
 
 ## Install
 
-#### Homebrew
+#### (MAC) Homebrew
 ```bash
 brew tap drbh/zedis https://github.com/drbh/zedis
 brew install zedis
 zedis
+```
+
+#### (LINUX) `apt-get`
+```
+wget https://github.com/drbh/zedis/releases/download/v0.0001/zedis_1.0_amd64.deb 
+sudo apt install ./zedis_1.0_amd64.deb
+rm zedis_1.0_amd64.deb
+zedis
+```
+
+#### Running Prompt
+```
 # $ zedis
 #
 #	   _______ ___ ___ ___ 
