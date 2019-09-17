@@ -55,6 +55,16 @@ Really Fast reads `< 250µs` for `~2 MB` json payload.
 
 Pretty Fast writes `< 18ms` for `~2 MB` json payload.  
 
+#### Setting Port
+
+Now you can set the port/socket that `zedis` will be available on.
+
+```
+zedis 6677
+```
+
+If no port is specified zedis will fallback on `5555`
+
 ## Read/Write from Python
 ```python
 import zmq
