@@ -1,6 +1,7 @@
 use sled::Db;
 use std::str;
 use std::time::Instant;
+use std::env;
 
 #[derive(Debug)]
 enum Error {
@@ -33,13 +34,18 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
 }
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let mut port = "5555";
+    if args.len() > 1 {
+        port = &args[1];
+    };
     let context = zmq::Context::new();
     let responder = context.socket(zmq::REP).unwrap();
-    assert!(responder.bind("tcp://*:5555").is_ok());
+    let address = format!("tcp://*:{}", port);
+    assert!(responder.bind(&address).is_ok());
     let mut msg = zmq::Message::new();
     let t = Db::open("my_db").unwrap();
     println!(
-        "{}",
         "
       _______ ___ ___ ___ 
      |_  / __|   \\_ _/ __|
@@ -50,8 +56,8 @@ fn main() {
     Welcome to zedis a lightweight
     super simple datasore. 
 
-    transport: tcp://localhost:5555 
-    database file: my_db"
+    transport: tcp://localhost:{} 
+    database file: my_db", &port
     );
 
     loop {
