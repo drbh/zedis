@@ -27,6 +27,16 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
             Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
             None => Err(Error::InvalidKey),
         },
+        "PRE" => {
+            let keys = t
+                .scan_prefix(key.as_bytes())
+                .keys()
+                .map(|x| String::from_utf8(x.unwrap().to_vec()).map_err(|_| Error::Database))
+                .map(|y| y.unwrap())
+                .collect::<Vec<String>>()
+                .join("\", \"");
+            Ok(format!("[\"{}\"]", keys))
+        }
         "SET" => {
             match t
                 .insert(key.as_bytes(), val.as_bytes())
