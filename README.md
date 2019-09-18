@@ -37,6 +37,19 @@ Really Fast reads `< 250µs` for `~2 MB` json payload.
 
 Pretty Fast writes `< 18ms` for `~2 MB` json payload.  
 
+
+# Commands
+
+### `GET key`
+
+### `SET key value`
+
+### `DEL key`
+
+### `KEYS`
+
+
+
 #### Setting Port
 
 Now you can set the port/socket that `zedis` will be available on.

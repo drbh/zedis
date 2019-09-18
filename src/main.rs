@@ -1,7 +1,7 @@
 use sled::Db;
+use std::env;
 use std::str;
 use std::time::Instant;
-use std::env;
 
 #[derive(Debug)]
 enum Error {
@@ -12,9 +12,16 @@ enum Error {
 
 fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
     let mut commands = msg.split_whitespace();
+    let command_count = commands.clone().count();
     let cmd = commands.next().ok_or(Error::InvalidCommand)?;
-    let key = commands.next().ok_or(Error::InvalidKey)?;
-    let val: String = commands.collect::<Vec<&str>>().join(" ");
+
+    let mut key: &str = "default";
+    let mut val: String = "default".to_string();
+    if command_count > 1 {
+        key = commands.next().ok_or(Error::InvalidKey)?;
+        val = commands.collect::<Vec<&str>>().join(" ");
+    }
+
     match cmd {
         "GET" => match t.get(key.as_bytes()).map_err(|_| Error::Database)? {
             Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
@@ -29,6 +36,21 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
                 None => Ok(String::from("done")),
             }
         }
+        "DEL" => match t.remove(key.as_bytes()).map_err(|_| Error::Database)? {
+            Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
+            None => Ok(String::from("done")),
+        },
+        "KEYS" => {
+            let keys = t
+                .iter()
+                .keys()
+                .map(|x| String::from_utf8(x.unwrap().to_vec()).map_err(|_| Error::Database))
+                .map(|y| y.unwrap())
+                .collect::<Vec<String>>()
+                .join("\", \"");
+            Ok(format!("[\"{}\"]", keys))
+        }
+
         _ => Err(Error::InvalidCommand),
     }
 }
@@ -57,7 +79,8 @@ fn main() {
     super simple datasore. 
 
     transport: tcp://localhost:{} 
-    database file: my_db", &port
+    database file: my_db",
+        &port
     );
 
     loop {
