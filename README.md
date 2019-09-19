@@ -40,26 +40,47 @@ Pretty Fast writes `< 18ms` for `~2 MB` json payload.
 
 # Commands
 
-### `GET key`
+### Getting Values
+
+```
+GET key
+```
 
 Return the string values of the key. Returns `b'Error occurred: InvalidKey'` if key does not exist
 
-### `SET key value`
+### Setting Values 
 
+```
+SET key value
+```
 Insert a key value. If the key already exists the value will be overwritten.
 
-### `DEL key`
+### Removing Values
+
+```
+DEL key
+```
 
 Delete a key and it's value from zedis. This will also return the last known value of the key.
 
-### `KEYS`
+### Showing Keys
+
+```
+KEYS
+```
 
 This retrns a JSON format list of all of the keys. This is ineffiecent, it iterates through the whole DB and then concats the key names togther. Do not use if you have more than 1000 keys if you want instant results.
 
-### `PRE keyprefix`
+### Querying
+
+```
+PRE keyprefix
+```
 
 Returns all keys with that prefix. So "A" will return "Alpha", "Awesome"... this is case sensitive.
 
+
+# Configuring
 
 #### Setting Port
 
@@ -88,7 +109,7 @@ socket.send_string("SET david richard blyn holtz");socket.recv()
 socket._string("GET david");socket.recv()
 # 'richard blyn holtz'
 
-jsonblob = json.dumps({"example": "lorem ipsum"*2048})
+jsonblob = json.dumps({"example": "you can store seralized JSON"})
 socket.send_string("SET js "+jsonblob);socket.recv()
 # 'done.'
 
@@ -96,7 +117,7 @@ socket.send_string("GET js")
 json.loads(socket.recv())
 # {u'exmple': u'lorem ipsum...'}
 
-socket.send_string("DEL 2");socket.recv();socket.recv()
+socket.send_string("DEL js");socket.recv();socket.recv()
 # b'2 yo yo'
 
 ## ADDING A BUNCH OF KEYS
