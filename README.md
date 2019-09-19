@@ -1,35 +1,39 @@
 # ZEDIS <img src="https://img.shields.io/github/stars/drbh/zedis.svg" />
 
-# Install
+<img src="public/zedislogo.png" alt="Logo">
 
-#### (MAC) Homebrew
+A lightweight [zeromq](https://github.com/zeromq/libzmq) and [seld](https://github.com/spacejam/sled) based replacement for Redis. <90 LOC focused on a portable cross
+language simple storage system. No need to run a full service.
+
+## Install
+
+#### Debian
+```bash
+wget https://github.com/drbh/zedis/releases/download/v0.0001/zedis_1.0_amd64.deb 
+sudo apt install ./zedis_1.0_amd64.deb
+```
+
+#### OSX
 ```bash
 brew tap drbh/zedis https://github.com/drbh/zedis
 brew install zedis
 ```
 
-#### (LINUX) `apt-get`
-```
-wget https://github.com/drbh/zedis/releases/download/v0.0001/zedis_1.0_amd64.deb 
-sudo apt install ./zedis_1.0_amd64.deb
-rm zedis_1.0_amd64.deb
-```
-# Run
-``` 
-zedis
+### Source
+```bash
+git clone https://github.com/drbh/zedis.git && cd zedis
+cargo run 
 ```
 
-#### 👍
-```
-# $ zedis
+## Run 👍
+```bash
+zedis
 #	   _______ ___ ___ ___ 
 #	  |_  / __|   \_ _/ __|
 #	   / /| _|| |) | |\__ \ 
 #	  /___|___|___/___|___/ 
 #
 ```
-A lightweight zero mq and sled based replacement for Redis. <90 LOC focused on a portable cross
-language simple storage system. No need to run a full service.
 
 Zedis is opinionated and limited. With ZEDIS you can only READ and WRITE key values pairs. All writes overwrite past values. 
 
@@ -37,10 +41,17 @@ Really Fast reads `< 250µs` for `~2 MB` json payload.
 
 Pretty Fast writes `< 18ms` for `~2 MB` json payload.  
 
+#### Setting Port
 
-# Commands
+Now you can set the port/socket that `zedis` will be available on. If no port is specified zedis will fallback on `5555`
 
-### Getting Values
+```bash
+zedis 6677
+```
+
+## Commands
+
+### Get values
 
 ```
 GET key
@@ -48,14 +59,14 @@ GET key
 
 Return the string values of the key. Returns `b'Error occurred: InvalidKey'` if key does not exist
 
-### Setting Values 
+### Set values 
 
 ```
 SET key value
 ```
 Insert a key value. If the key already exists the value will be overwritten.
 
-### Removing Values
+### Remove values
 
 ```
 DEL key
@@ -63,7 +74,7 @@ DEL key
 
 Delete a key and it's value from zedis. This will also return the last known value of the key.
 
-### Showing Keys
+### Show keys
 
 ```
 KEYS
@@ -71,7 +82,7 @@ KEYS
 
 This retrns a JSON format list of all of the keys. This is ineffiecent, it iterates through the whole DB and then concats the key names togther. Do not use if you have more than 1000 keys if you want instant results.
 
-### Querying
+### Query
 
 ```
 PRE keyprefix
@@ -79,20 +90,7 @@ PRE keyprefix
 
 Returns all keys with that prefix. So "A" will return "Alpha", "Awesome"... this is case sensitive.
 
-
-# Configuring
-
-#### Setting Port
-
-Now you can set the port/socket that `zedis` will be available on.
-
-```
-zedis 6677
-```
-
-If no port is specified zedis will fallback on `5555`
-
-#### Read/Write from Python
+#### Python3 client example
 ```python
 import zmq
 import json
@@ -150,7 +148,7 @@ nc -v -z -w 5 localhost 5555
 # Connection to localhost port 5555 [tcp/personal-agent] succeeded!
 ```
 
-# Dev
+## `01010` Developer Stuff
 
 #### Build it
 Clone, build and add a symlink so you can access `zedis` in the cli
