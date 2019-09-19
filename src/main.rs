@@ -35,6 +35,9 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
                 .map(|y| y.unwrap())
                 .collect::<Vec<String>>()
                 .join("\", \"");
+            if keys.len() < 1 {
+                Err(Error::InvalidKey)?
+            }
             Ok(format!("[\"{}\"]", keys))
         }
         "SET" => {
