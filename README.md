@@ -28,8 +28,8 @@ zedis
 #	  /___|___|___/___|___/ 
 #
 ```
-
-A lightweight zero mq and sled based replacement for Redis. <50 LOC focused on a portable corss language simple storage system. No need to run a full service.
+A lightweight zero mq and sled based replacement for Redis. <90 LOC focused on a portable cross
+language simple storage system. No need to run a full service.
 
 Zedis is opinionated and limited. With ZEDIS you can only READ and WRITE key values pairs. All writes overwrite past values. 
 
@@ -42,12 +42,23 @@ Pretty Fast writes `< 18ms` for `~2 MB` json payload.
 
 ### `GET key`
 
+Return the string values of the key. Returns `b'Error occurred: InvalidKey'` if key does not exist
+
 ### `SET key value`
+
+Insert a key value. If the key already exists the value will be overwritten.
 
 ### `DEL key`
 
+Delete a key and it's value from zedis. This will also return the last known value of the key.
+
 ### `KEYS`
 
+This retrns a JSON format list of all of the keys. This is ineffiecent, it iterates through the whole DB and then concats the key names togther. Do not use if you have more than 1000 keys if you want instant results.
+
+### `PRE keyprefix`
+
+Returns all keys with that prefix. So "A" will return "Alpha", "Awesome"... this is case sensitive.
 
 
 #### Setting Port
@@ -71,22 +82,35 @@ context = zmq.Context()
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:%s" % port)
 
-socket.send("SET david richard blyn holtz")
-socket.recv()
+socket.send_string("SET david richard blyn holtz");socket.recv()
 # 'done.'
 
-socket.send("GET david")
-socket.recv()
+socket._string("GET david");socket.recv()
 # 'richard blyn holtz'
 
 jsonblob = json.dumps({"example": "lorem ipsum"*2048})
-socket.send("SET js "+jsonblob)
-socket.recv()
+socket.send_string("SET js "+jsonblob);socket.recv()
 # 'done.'
 
-socket.send("GET js")
+socket.send_string("GET js")
 json.loads(socket.recv())
 # {u'exmple': u'lorem ipsum...'}
+
+socket.send_string("DEL 2");socket.recv();socket.recv()
+# b'2 yo yo'
+
+## ADDING A BUNCH OF KEYS
+for x in range(0, 100):
+    socket.send_string("SET "+str(x)+" "+str(x)+" yo yo")
+    socket.recv()
+
+socket.send_string("PRE 1");socket.recv()
+# b'["1", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"]'
+
+
+socket.send_string("KEYS");socket.recv()
+# b'["0", "1", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]'
+
 ```
 
 
