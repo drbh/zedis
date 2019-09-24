@@ -4,6 +4,10 @@ version = "0.1.101"
 authors = ["drbh <david.richard.holtz@gmail.com>"]
 edition = "2018"
 
+repository = "https://github.com/drbh/zedis"
+description = "A little brokerless persisted lockfree datastore. 7 commands, super simple"
+license = "Apache-2.0"
+
 [dependencies]
 sled = "0.28.0"
 zmq = "0.9"
