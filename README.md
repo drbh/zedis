@@ -7,23 +7,15 @@ language simple storage system. No need to run a full service.
 
 ## Install
 
-#### Debian
-```bash
-wget https://github.com/drbh/zedis/releases/download/v0.0001/zedis_1.0_amd64.deb 
-sudo apt install ./zedis_1.0_amd64.deb
+#### Not supporting `apt` and `homebrew`. too many places to update.
+
+## Recommended Install
+
+This will always fetch and build the most recent version of zedis for your computer. If you don't have cargo checkout https://www.rust-lang.org/tools/install
+```
+cargo install zedis
 ```
 
-#### OSX
-```bash
-brew tap drbh/zedis https://github.com/drbh/zedis
-brew install zedis
-```
-
-### Source
-```bash
-git clone https://github.com/drbh/zedis.git && cd zedis
-cargo run 
-```
 
 ## Run 👍
 ```bash
