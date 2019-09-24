@@ -22,7 +22,7 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
         val = commands.collect::<Vec<&str>>().join(" ");
     }
 
-    match cmd {
+    match cmd.to_ascii_uppercase().as_str() {
         "GET" => match t.get(key.as_bytes()).map_err(|_| Error::Database)? {
             Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
             None => Err(Error::InvalidKey),
@@ -53,6 +53,13 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
             Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
             None => Ok(String::from("done")),
         },
+        "CLEAR" => {
+            t.clear().unwrap();
+            Ok(String::from("cleared"))
+        },
+        "FLUSH" => {
+            Ok(format!("[\"{}\"]", t.flush().unwrap()))
+        },
         "KEYS" => {
             let keys = t
                 .iter()
@@ -63,7 +70,6 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
                 .join("\", \"");
             Ok(format!("[\"{}\"]", keys))
         }
-
         _ => Err(Error::InvalidCommand),
     }
 }
@@ -87,6 +93,7 @@ fn main() {
       / /| _|| |) | |\\__ \\ 
      /___|___|___/___|___/ 
 
+    version: 0.1.101
 
     Welcome to zedis a lightweight
     super simple datasore. 
