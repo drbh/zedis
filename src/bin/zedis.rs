@@ -56,10 +56,8 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
         "CLEAR" => {
             t.clear().unwrap();
             Ok(String::from("cleared"))
-        },
-        "FLUSH" => {
-            Ok(format!("[\"{}\"]", t.flush().unwrap()))
-        },
+        }
+        "FLUSH" => Ok(format!("[\"{}\"]", t.flush().unwrap())),
         "KEYS" => {
             let keys = t
                 .iter()
@@ -93,7 +91,7 @@ fn main() {
       / /| _|| |) | |\\__ \\ 
      /___|___|___/___|___/ 
 
-    version: 0.1.101
+    version: 0.1.102
 
     Welcome to zedis a lightweight
     super simple datasore. 

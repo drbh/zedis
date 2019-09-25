@@ -1,0 +1,7 @@
+keys
+set yo
+get yo
+set yo david
+get yo
+kes
+set hello world
