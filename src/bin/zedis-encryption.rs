@@ -1,12 +1,5 @@
-use colored::*;
-use std::env;
-
-extern crate rustyline;
-
-use rustyline::error::ReadlineError;
-use rustyline::Editor;
-
 use sodiumoxide::crypto::aead;
+use std::env;
 
 fn execute(socket: &zmq::Socket, cmd: String) -> String {
     let mut msg = zmq::Message::new();
@@ -37,7 +30,9 @@ fn main() {
     let c = aead::seal(m, Some(ad), &n, &k);
     let m2 = aead::open(&c, Some(ad), &n, &k).unwrap();
 
-    let y = String::from_utf8(m2.clone());
+    let y = String::from_utf8(m2.clone()).unwrap();
+
+    execute(&socket, y.clone());
 
     println!("{:?}", y);
 }

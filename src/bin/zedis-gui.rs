@@ -7,7 +7,7 @@ use actix_web::http::StatusCode;
 use actix_web::{web, App, HttpResponse, HttpServer};
 use serde_derive::{Deserialize, Serialize};
 // use actix_web::{middleware};
-use std::{env, io};
+use std::env;
 
 pub static mut DB: Option<zmq::Socket> = None;
 

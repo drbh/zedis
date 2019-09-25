@@ -1971,7 +1971,7 @@ dependencies = [
 
 [[package]]
 name = "zedis"
-version = "0.1.101"
+version = "0.1.102"
 dependencies = [
  "actix-web 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "bytes 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
