@@ -27,3 +27,5 @@ serde_json = "1.0"
 json = "*"
 
 web-view = "0.4.5"
+
+ring = "0.16.9"
