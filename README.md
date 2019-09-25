@@ -7,14 +7,18 @@ language simple storage system. No need to run a full service.
 
 ## Install
 
-#### Not supporting `apt` and `homebrew`. too many places to update.
-
 ## Recommended Install
 
 This will always fetch and build the most recent version of zedis for your computer. If you don't have cargo checkout https://www.rust-lang.org/tools/install
 ```
 cargo install zedis
 ```
+
+
+<img src="public/get-zedis.gif" alt="Logo">
+
+
+#### Not supporting `apt` and `homebrew` anymore, too many places to update.
 
 
 ## Run 👍
@@ -80,6 +84,9 @@ This retrns a JSON format list of all of the keys. This is ineffiecent, it itera
 PRE keyprefix
 ```
 
+[get zedis cli](https://github.com/drbh/zedis-cli)
+<img src="public/using-zedis-cli.gif" alt="Logo">
+
 Returns all keys with that prefix. So "A" will return "Alpha", "Awesome"... this is case sensitive.
 
 #### Python3 client example
@@ -140,7 +147,7 @@ nc -v -z -w 5 localhost 5555
 # Connection to localhost port 5555 [tcp/personal-agent] succeeded!
 ```
 
-## `01010` Developer Stuff
+## 🦀 `01010` Developer Stuff
 
 #### Build it
 Clone, build and add a symlink so you can access `zedis` in the cli
