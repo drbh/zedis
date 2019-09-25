@@ -45,6 +45,10 @@ Now you can set the port/socket that `zedis` will be available on. If no port is
 zedis 6677
 ```
 
+## Interacting with CLI app
+[get zedis cli](https://github.com/drbh/zedis-cli)
+<img src="public/closeup.gif" alt="Logo">
+
 ## Commands
 
 ### Get values
@@ -83,9 +87,6 @@ This retrns a JSON format list of all of the keys. This is ineffiecent, it itera
 ```
 PRE keyprefix
 ```
-
-[get zedis cli](https://github.com/drbh/zedis-cli)
-<img src="public/using-zedis-cli.gif" alt="Logo">
 
 Returns all keys with that prefix. So "A" will return "Alpha", "Awesome"... this is case sensitive.
 
