@@ -11,7 +11,7 @@ license = "Apache-2.0"
 [dependencies]
 sled = "0.28.0"
 zmq = "0.9"
-serde_derive = "1.0.102"
+serde_derive = "1.0.101"
 colored = "1.8"
 rustyline = "5.0.3"
 
