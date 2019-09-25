@@ -28,4 +28,4 @@ json = "*"
 
 web-view = "0.4.5"
 
-ring = "0.16.9"
+sodiumoxide = "0.2.4"
