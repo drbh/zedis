@@ -1,6 +1,6 @@
 [package]
 name = "zedis"
-version = "0.1.101"
+version = "0.1.102"
 authors = ["drbh <david.richard.holtz@gmail.com>"]
 edition = "2018"
 
