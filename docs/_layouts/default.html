@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
+    <style type="text/css">
+      .page-header{
+        background-image: url("https://images.unsplash.com/photo-1517281862878-d312fe477d71?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1272&q=80") !important;
+      }
+    </style>
 
     {% if site.google_analytics %}
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
@@ -25,7 +30,7 @@
       <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
       <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
       {% if site.github.is_project_page %}
-        <a href="/" class="btn">Homepage</a>
+        <a href="https://drbh.github.io/zedis/" class="btn">Homepage</a>
         <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
       {% endif %}
       {% if site.show_downloads %}
