@@ -14,4 +14,4 @@ zedis-gui
 
 ## Screenshot
 
-<img src="/public/screenshot.png" alt="Logo">
+<img src="https://raw.githubusercontent.com/drbh/zedis-interface/master/public/screenshot.png" alt="Logo">
