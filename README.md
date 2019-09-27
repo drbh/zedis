@@ -6,4 +6,4 @@
 cargo install zedis
 ```
 
-[docs](https://drbh.github.io/zedis/)
+For usage and examples check out the [documentation](https://drbh.github.io/zedis/)
