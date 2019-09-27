@@ -24,6 +24,6 @@ Minimal CPU and Memory resources are used, only uses `<50 MBs` when reading/writ
 
 `zedis` comes with a toolkit to make development easy and painless.
 
-- zedis-cli (CLI REPL)
-- zedis-interface (REST API and GUI)
+- [zedis-cli](./cli) (CLI REPL)
+- [zedis-gui](./gui) (REST API and GUI)
 - zedis (ENCRYPTION -- in development)

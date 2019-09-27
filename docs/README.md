@@ -12,3 +12,8 @@ language simple storage system. No need to run a full service.
 - [Commands](./commands)
 - [Clients](./clients)
 - [Misc](./misc)
+
+## Packaged Apps
+
+- [Command Line Interface](./cli)
+- [Graphical User Interface](./gui)
