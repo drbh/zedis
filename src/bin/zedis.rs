@@ -10,7 +10,7 @@ enum Error {
     InvalidKey,
 }
 
-fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
+fn handle(t: sled::Db, msg: &str, publ: &zmq::Socket) -> Result<String, Error> {
     let mut commands = msg.split_whitespace();
     let command_count = commands.clone().count();
     let cmd = commands.next().ok_or(Error::InvalidCommand)?;
@@ -45,7 +45,11 @@ fn handle(t: sled::Db, msg: &str) -> Result<String, Error> {
                 .insert(key.as_bytes(), val.as_bytes())
                 .map_err(|_| Error::Database)?
             {
-                Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
+                Some(val) => {
+                    // send the key
+                    publ.send(key, 0).expect("ZMQ error");
+                    String::from_utf8(val.to_vec()).map_err(|_| Error::Database)
+                }
                 None => Ok(String::from("done")),
             }
         }
@@ -82,6 +86,12 @@ fn main() {
     let responder = context.socket(zmq::REP).unwrap();
     let address = format!("tcp://*:{}", port);
     assert!(responder.bind(&address).is_ok());
+
+    let publisher = context.socket(zmq::PUB).unwrap();
+    let address = format!("tcp://127.0.0.1:{}", "7894");
+    assert!(publisher.bind(&address).is_ok());
+    publisher.send("money", 0).expect("ZMQ error");
+
     let mut msg = zmq::Message::new();
     let t = Db::open("my_db").unwrap();
     println!(
@@ -105,7 +115,7 @@ fn main() {
         responder.recv(&mut msg, 0).unwrap();
         let msg_text = msg.as_str().unwrap();
         let start = Instant::now();
-        let answer = match handle(t.clone(), msg_text) {
+        let answer = match handle(t.clone(), msg_text, &publisher) {
             Ok(res) => res,
             Err(e) => format!("Error occurred: {:?}", e),
         };
