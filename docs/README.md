@@ -1,6 +1,6 @@
 # ZEDIS <img src="https://img.shields.io/github/stars/drbh/zedis.svg" />
 
-<img src="https://github.com/drbh/zedis/public/zedislogo.png" alt="Logo">
+<img src="https://github.com/drbh/zedis/blob/master/public/zedislogo.png" alt="Logo">
 
 A lightweight [zeromq](https://github.com/zeromq/libzmq) and [seld](https://github.com/spacejam/sled) based replacement for Redis. <90 LOC focused on a portable cross
 language simple storage system. No need to run a full service.
@@ -15,7 +15,7 @@ cargo install zedis
 ```
 
 
-<img src="https://github.com/drbh/zedis/public/get-zedis.gif" alt="Logo">
+<img src="https://github.com/drbh/zedis/blob/master/public/get-zedis.gif" alt="Logo">
 
 
 #### Not supporting `apt` and `homebrew` anymore, too many places to update.
@@ -47,7 +47,7 @@ zedis 6677
 
 ## Interacting with CLI app
 [get zedis cli](https://github.com/drbh/zedis-cli)
-<img src="https://github.com/drbh/zedis/public/closeup.gif" alt="Logo">
+<img src="https://github.com/drbh/zedis/blob/master/public/closeup.gif" alt="Logo">
 
 ## Commands
 
