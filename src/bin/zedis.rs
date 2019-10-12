@@ -10,6 +10,18 @@ enum Error {
     InvalidKey,
 }
 
+fn increment(old: Option<&[u8]>) -> Option<Vec<u8>> {
+    let number = match old {
+        Some(bytes) => {
+            let string_value = String::from_utf8(bytes.to_vec()).unwrap();
+            let my_int = string_value.parse::<i32>().unwrap();
+            my_int + 1
+        }
+        None => 0,
+    };
+    Some(number.to_string().as_bytes().to_vec())
+}
+
 fn handle(t: sled::Db, msg: &str, publ: &zmq::Socket) -> Result<String, Error> {
     let mut commands = msg.split_whitespace();
     let command_count = commands.clone().count();
@@ -40,6 +52,13 @@ fn handle(t: sled::Db, msg: &str, publ: &zmq::Socket) -> Result<String, Error> {
             }
             Ok(format!("[\"{}\"]", keys))
         }
+        "INC" => match t
+            .update_and_fetch(key.as_bytes(), increment)
+            .map_err(|_| Error::Database)?
+        {
+            Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
+            None => Ok(String::from("0")),
+        },
         "SET" => {
             match t
                 .insert(key.as_bytes(), val.as_bytes())
