@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/drbh/zedis/master/public/zedislogo.png" alt="Logo">
 
-A lightweight [zeromq](https://github.com/zeromq/libzmq) and [seld](https://github.com/spacejam/sled) based replacement for Redis. <90 LOC focused on a portable cross
+A lightweight [zeromq](https://github.com/zeromq/libzmq) and [sled](https://github.com/spacejam/sled) based replacement for Redis. <90 LOC focused on a portable cross
 language simple storage system. No need to run a full service.
 
 ## Contents
