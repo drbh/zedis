@@ -17,12 +17,11 @@ fn increment(old: Option<&[u8]>) -> Option<Vec<u8>> {
             // return old value if is not int32
             let string_value = String::from_utf8(bytes.to_vec()).unwrap();
             let my_int = string_value.parse::<i32>().map_err(|_| Error::Database);
-            let _int = my_int.unwrap_or(-1);
-            if _int != -1 {
-                return Some((_int + 1).to_string().as_bytes().to_vec());
+            let int = my_int.unwrap_or(-1);
+            if int != -1 {
+                return Some((int + 1).to_string().as_bytes().to_vec());
             }
         }
-        // None => return Some(0.to_string().as_bytes().to_vec()),
         None => return None,
     };
     Some(old.unwrap().to_vec())
@@ -63,9 +62,6 @@ fn handle(t: sled::Db, msg: &str, publ: &zmq::Socket) -> Result<String, Error> {
             .map_err(|_| Error::Database)?
         {
             Some(val) => {
-                // println!("{:?}", "val");
-                // println!("{:?}", val);
-
                 //wasteful test - but returns error if failed
                 let string_value = String::from_utf8(val.to_vec()).unwrap();
                 let my_int = string_value.parse::<i32>().map_err(|_| Error::Database);
