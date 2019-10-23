@@ -8,18 +8,24 @@ enum Error {
     InvalidCommand,
     Database,
     InvalidKey,
+    NonIntValue,
 }
 
 fn increment(old: Option<&[u8]>) -> Option<Vec<u8>> {
-    let number = match old {
+    match old {
         Some(bytes) => {
+            // return old value if is not int32
             let string_value = String::from_utf8(bytes.to_vec()).unwrap();
-            let my_int = string_value.parse::<i32>().unwrap();
-            my_int + 1
+            let my_int = string_value.parse::<i32>().map_err(|_| Error::Database);
+            let _int = my_int.unwrap_or(-1);
+            if _int != -1 {
+                return Some((_int + 1).to_string().as_bytes().to_vec());
+            }
         }
-        None => 0,
+        // None => return Some(0.to_string().as_bytes().to_vec()),
+        None => return None,
     };
-    Some(number.to_string().as_bytes().to_vec())
+    Some(old.unwrap().to_vec())
 }
 
 fn handle(t: sled::Db, msg: &str, publ: &zmq::Socket) -> Result<String, Error> {
@@ -56,8 +62,20 @@ fn handle(t: sled::Db, msg: &str, publ: &zmq::Socket) -> Result<String, Error> {
             .update_and_fetch(key.as_bytes(), increment)
             .map_err(|_| Error::Database)?
         {
-            Some(val) => String::from_utf8(val.to_vec()).map_err(|_| Error::Database),
-            None => Ok(String::from("0")),
+            Some(val) => {
+                // println!("{:?}", "val");
+                // println!("{:?}", val);
+
+                //wasteful test - but returns error if failed
+                let string_value = String::from_utf8(val.to_vec()).unwrap();
+                let my_int = string_value.parse::<i32>().map_err(|_| Error::Database);
+                let _int = my_int.unwrap_or(0);
+                if _int == 0 {
+                    return Err(Error::NonIntValue)?;
+                }
+                String::from_utf8(val.to_vec()).map_err(|_| Error::Database)
+            }
+            None => Err(Error::InvalidKey)?,
         },
         "SET" => {
             match t
